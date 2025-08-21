@@ -2,54 +2,59 @@
     <div class="card">
         <div class="card-body">
             <span class="h3"> Listado de Personas</span>
-            <button class="btn btn-dark btn-lg float-end" routerLink="#">Agregar</button>
+            <button class="btn btn-dark btn-lg float-end" (click)="showModal = true">Agregar</button>
+
 
             <table class="table table-striped mt-5">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>First</th>
-                        <th>Last</th>
-                        <th>Handle</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
                         <th>Accion</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>No hay personas</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                    <tr *ngFor="let persona of personas ; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{persona.name}}</td>
+                        <td>{{persona.last_name}}</td>
+                        <td>{{persona.years}}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary">Editar</button>
-                            <button class="btn btn-sm btn-danger ms-2">Eliminar</button>
+                            <i class="fa-regular fa-pen-to-square fa-lg text-info"></i>
+                            <i class="fa-regular fa-trash-can fa-lg ms-2 text-danger"></i>
                         </td>
 
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">Editar</button>
-                            <button class="btn btn-sm btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>@social</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">Editar</button>
-                            <button class="btn btn-sm btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
 
     </div>
 
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Persona</h5>
+                <button type="button" class="btn-close" (click)="showModal = false"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" [(ngModel)]="newPersona.name" placeholder="Nombre" class="form-control mb-2">
+                <input type="text" [(ngModel)]="newPersona.last_name" placeholder="Apellido" class="form-control mb-2">
+                <input type="number" [(ngModel)]="newPersona.years" placeholder="Edad" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" (click)="showModal = false">Cerrar</button>
+                <button class="btn btn-primary" (click)="agregarPersona()">Agregar</button>
+            </div>
+        </div>
+    </div>
 </div>
