@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+app-root,
+html,
+body {
+    /* background-image: url('./assets/fondopaisa.jpg'); */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./assets/fondopaisa.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    margin: o;
+    padding: 0;
+
+}
