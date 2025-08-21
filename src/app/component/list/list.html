@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <span class="h3"> Listado de Personas</span>
-            <button class="btn btn-dark btn-lg float-end" (click)="showModal = true">Agregar</button>
+            <button class="btn btn-dark btn-lg float-end" (click)="openModalNew()">Agregar</button>
 
 
             <table class="table table-striped mt-5">
@@ -18,12 +18,13 @@
                 <tbody>
                     <tr *ngFor="let persona of personas ; let i=index">
                         <td>{{i+1}}</td>
-                        <td>{{persona.name}}</td>
                         <td>{{persona.last_name}}</td>
+                        <td>{{persona.name}}</td>
                         <td>{{persona.years}}</td>
                         <td>
-                            <i class="fa-regular fa-pen-to-square fa-lg text-info"></i>
-                            <i class="fa-regular fa-trash-can fa-lg ms-2 text-danger"></i>
+                            <i class="fa-regular fa-pen-to-square fa-lg text-info"
+                                (click)="openModalEdit(persona,i)"></i>
+                            <i class="fa-regular fa-trash-can fa-lg ms-2 text-danger" (click)="deletePers(i)"></i>
                         </td>
 
                     </tr>
@@ -42,7 +43,7 @@
 <div class="modal" tabindex="-1" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header custom-gradient text-white">
                 <h5 class="modal-title">Agregar Persona</h5>
                 <button type="button" class="btn-close" (click)="showModal = false"></button>
             </div>
@@ -53,7 +54,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" (click)="showModal = false">Cerrar</button>
-                <button class="btn btn-primary" (click)="agregarPersona()">Agregar</button>
+                <button class="btn btn-primary" (click)="addPersona()">Agregar</button>
             </div>
         </div>
     </div>

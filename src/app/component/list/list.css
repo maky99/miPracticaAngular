@@ -2,3 +2,7 @@ i {
     cursor: pointer;
 
 }
+
+.custom-gradient {
+    background: linear-gradient(90deg, #78e98d, #f18b3d);
+}
