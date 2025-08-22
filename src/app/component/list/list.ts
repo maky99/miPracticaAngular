@@ -13,11 +13,13 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./list.css']
 })
 export class ListComponent {
+  searchText: string = '';
+
 
 
   //variables para el paginado 
   currentPage: number = 1; // página actual
-  pageSize: number = 10;   // cuántos registros mostrar por página
+  pageSize: number = 5;   // cuántos registros mostrar por página
   totalPages: number = 1;  // total de páginas
   paginatedPersonas: Person[] = []; // lista que se mostrará en la tabla
 
@@ -123,11 +125,35 @@ export class ListComponent {
 
   //paginado 
   updatePagination() {
-    const start = (this.currentPage - 1) * this.pageSize; // calculamos el índice de inicio (skip)
-    const end = start + this.pageSize; // índice final
-    this.paginatedPersonas = this.personas.slice(start, end); // slice actúa como skip + take
-    this.totalPages = Math.ceil(this.personas.length / this.pageSize); // calculamos total de páginas
+    // Filtra la lista según searchText
+    const filtered = this.personas.filter(p =>
+      p.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      p.last_name.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+
+    // Usamos filtered, no this.personas
+    this.paginatedPersonas = filtered.slice(start, end);
+    this.totalPages = Math.ceil(filtered.length / this.pageSize);
   }
+
+
+
+
+  // updatePagination() {
+  //   // Filtra la lista según searchText
+  //   const filtered = this.personas.filter(p =>
+  //     p.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+  //     p.last_name.toLowerCase().includes(this.searchText.toLowerCase())
+  //   );
+
+  //   const start = (this.currentPage - 1) * this.pageSize; // calculamos el índice de inicio (skip)
+  //   const end = start + this.pageSize; // índice final
+  //   this.paginatedPersonas = this.personas.slice(start, end); // slice actúa como skip + take
+  //   this.totalPages = Math.ceil(this.personas.length / this.pageSize); // calculamos total de páginas
+  // }
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
@@ -142,6 +168,8 @@ export class ListComponent {
       this.updatePagination();
     }
   }
+
+
 
 
 }

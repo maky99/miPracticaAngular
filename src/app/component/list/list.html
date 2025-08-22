@@ -1,10 +1,13 @@
 <div class="container pt-4">
     <div class="card">
         <div class="card-body">
-            <div class="position-relative mb-3">
-                <span class="h3 position-absolute start-50 translate-middle-x">Listado de Personas</span>
-                <button class="btn btn-dark btn-lg float-end" (click)="openModalNew()">Agregar</button>
+            <div class="d-flex align-items-center mb-3">
+                <span class="h3 flex-grow-1 text-center">Listado de Personas</span>
+                <button class="btn btn-dark btn-lg ms-auto" (click)="openModalNew()">Agregar</button>
             </div>
+            <input type="text" [(ngModel)]="searchText" (ngModelChange)="updatePagination()"
+                placeholder="Buscar apellido" class="form-control w-auto ms-auto me-2 mb-2">
+
             <table class="table table-striped mt-5">
                 <thead>
                     <tr>

@@ -1,0 +1,41 @@
+<div class="container pt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="position-relative mb-3">
+                <span class="h3 position-absolute start-50 translate-middle-x">Listado de Jugadores</span>
+                <button class="btn btn-dark btn-lg float-end">Agregar</button>
+            </div>
+            <table class="table table-striped mt-5">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="mt-3">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                        <button class="page-link" (click)="prevPage()">Anterior</button>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Página {{currentPage}} de {{totalPages}}</span>
+                    </li>
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <button class="page-link" (click)="nextPage()">Siguiente</button>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </div>
+
+    </div>
+
+</div>
