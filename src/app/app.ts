@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponet } from './component/navbar/navbar';
 import { ListComponent } from './component/list/list';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

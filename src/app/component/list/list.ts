@@ -13,6 +13,14 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./list.css']
 })
 export class ListComponent {
+
+
+  //variables para el paginado 
+  currentPage: number = 1; // página actual
+  pageSize: number = 10;   // cuántos registros mostrar por página
+  totalPages: number = 1;  // total de páginas
+  paginatedPersonas: Person[] = []; // lista que se mostrará en la tabla
+
   personas: Person[] = [];
   showModal = false;
   isEditing = false;
@@ -28,6 +36,8 @@ export class ListComponent {
   constructor(private personService: PersonService) {
     this.personas = this.personService.getPerson();
     this.sortByLastName(); //hacemos el orden 
+    this.updatePagination(); // mostramos la primera página
+
   }
 
 
@@ -60,6 +70,8 @@ export class ListComponent {
     };
   }
 
+
+
   addPersona() {
     if (!this.newPersona.name || !this.newPersona.last_name || !this.newPersona.years) {
       alert('Todos los campos son obligatorios');
@@ -82,16 +94,17 @@ export class ListComponent {
 
     }
     this.sortByLastName();// ordenamos
+    this.updatePagination(); // actualizamos la paginación
     this.closeModal();
   }
 
-  deletePers(index: number) {
-    //pedimos confirmacion
+  deletePers(i: number) {
     if (confirm('¿Estas seguro de eliminar?')) {
-      this.personas.splice(index, 1);// elimina del array 
-      localStorage.setItem('personas', JSON.stringify(this.personas)); // actualiza el localstorage
-      this.sortByLastName();//ordenamos
-
+      const realIndex = (this.currentPage - 1) * this.pageSize + i;
+      this.personas.splice(realIndex, 1);
+      localStorage.setItem('personas', JSON.stringify(this.personas));
+      this.sortByLastName();
+      this.updatePagination();
     }
   }
 
@@ -105,5 +118,30 @@ export class ListComponent {
     if (!text) return '';
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   }
+
+
+
+  //paginado 
+  updatePagination() {
+    const start = (this.currentPage - 1) * this.pageSize; // calculamos el índice de inicio (skip)
+    const end = start + this.pageSize; // índice final
+    this.paginatedPersonas = this.personas.slice(start, end); // slice actúa como skip + take
+    this.totalPages = Math.ceil(this.personas.length / this.pageSize); // calculamos total de páginas
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
 
 }
